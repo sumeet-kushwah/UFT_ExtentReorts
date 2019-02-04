@@ -1,6 +1,7 @@
 ﻿using System;
 using AventStack.ExtentReports;
 using AventStack.ExtentReports.Reporter;
+using AventStack.ExtentReports.Reporter.Configuration;
 
 namespace UFT_Extent_Reports
 {
@@ -23,13 +24,13 @@ namespace UFT_Extent_Reports
 
         public Boolean ChangeToDarkTheme()
         {
-            extentHtmlReporter.Configuration().Theme = AventStack.ExtentReports.Reporter.Configuration.Theme.Dark;
+            extentHtmlReporter.Config.Theme = Theme.Dark;
             return true;
         }
 
         public Boolean ChangeToStandardTheme()
         {
-            extentHtmlReporter.Configuration().Theme = AventStack.ExtentReports.Reporter.Configuration.Theme.Standard;
+            extentHtmlReporter.Config.Theme = Theme.Standard;
             return true;
         }
 
@@ -85,6 +86,19 @@ namespace UFT_Extent_Reports
             return true;
         }
 
+        public Boolean SetTimeLine(Boolean EnableTimeLine = true)
+        {
+            extentHtmlReporter.Config.EnableTimeline = EnableTimeLine;
+            
+            return true;
+        }
+
+        public Boolean AddDeviceToTest(String DeviceName)
+        {
+            extentTest.AssignDevice(DeviceName);
+            return true;
+        }
+
         public Boolean AddInfoLog(String Message, String ScreenshotPath = "", String ScreenShotTitle = "")
         {
             if (ScreenshotPath == "")
@@ -129,19 +143,31 @@ namespace UFT_Extent_Reports
 
         public Boolean AddDocumentTitle(String title)
         {
-            extentHtmlReporter.Configuration().DocumentTitle = title;
+            extentHtmlReporter.Config.DocumentTitle = title;
             return true;
         }
 
         public Boolean AddReportName(String title)
         {
-            extentHtmlReporter.Configuration().ReportName = title;
+            extentHtmlReporter.Config.ReportName = title;
             return true;
         }
 
         public Boolean GenerateReport()
         {
             extent.Flush();
+            return true;
+        }
+
+        public Boolean AddSystemInfo(String Name, String Value)
+        {
+            extent.AddSystemInfo(Name, Value);
+            return true;
+        }
+
+        public Boolean LoadConfig(String FilePath)
+        {
+            extentHtmlReporter.LoadConfig(FilePath);
             return true;
         }
     }
